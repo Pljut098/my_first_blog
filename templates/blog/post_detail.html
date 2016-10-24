@@ -1,0 +1,38 @@
+    {% extends 'blog/base.html' %}
+    {% load staticfiles %}
+
+
+    {% block content %}
+        <div class="post">
+
+            <h1>{{ post.title }}</h1>
+            <p>{% autoescape off %}{{ post.text }}{% endautoescape %}</p>
+              {% if post.published_date %}
+                 <div class="date">
+                     {{ post.published_date }}
+                   </div>
+              {% endif %}
+            {% if post.image %}
+                <img src="{{ post.image.url }}">
+            {% endif %}
+
+         </div>
+           <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+
+         <div class="large-offsrt-1 large-8 colums">
+             {% for comment in comments %}
+                 <p>{{ comment.comments_text }}</p>
+                 <p align="right">{{ comment.comments_author }} -{{ comment.comments_date }}</p>
+             {% endfor %}
+         </div>
+         <div>
+            {% if username %}
+             <form action="{% url 'addcomment' pk=post.pk %}" method="POST" class="post-form">
+                 {% csrf_token %}
+                 {{ form }}
+                 <input type="submit" class="button" value="add">
+             </form>
+            {% endif %}
+
+         </div>
+    {% endblock %}

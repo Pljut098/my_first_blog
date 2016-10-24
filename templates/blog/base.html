@@ -10,9 +10,13 @@
         </head>
         <body>
 
+             </div>
              <div class="page-header">
                   {% if user.is_authenticated %}
                      <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                       <li><a href="/auth/logout">logout ({{ username }})</a></li>
+                  {% else %}
+                            <li><a href="/auth/login">login</a></li>
                   {% endif %}
                  <h1><a href="/">Django Blog</a></h1>
              </div>
@@ -20,6 +24,8 @@
                  <div class="row">
                  <div class="col-md-8">
                   {% block content %}
+                  {% endblock %}
+                     {% block login %}
                   {% endblock %}
                  </div>
                  </div>
