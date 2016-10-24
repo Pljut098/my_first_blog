@@ -1,0 +1,13 @@
+Django==1.8
+django-ckeditor==5.1.1
+django-disqus==0.5
+django-mptt==0.8.6
+FeinCMS==1.12.1
+mock==2.0.0
+pbr==1.10.0
+Pillow==3.4.2
+pkg-resources==0.0.0
+py-curses-editor==1.2.1
+pytz==2016.7
+six==1.10.0
+tree==0.1.0
