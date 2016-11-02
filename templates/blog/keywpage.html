@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+
+    <p>Статьи к тегу - {{ keyw_s.name }}:</p>
+    {% for post in posts %}
+        <h6>Дата публикации : {{ post.published_date }}</h6>
+        <h4><a href="/posts/get/{{ post.id }}/">{{ post.title }}</a></h4>
+    {% endfor %}
+
+{% endblock content %}

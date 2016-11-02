@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^addcomment/(?P<pk>[0-9]+)/$', views.addcomment, name ='addcomment'),
     url(r'^adddislike/(?P<pk>[0-9]+)/$', views.adddislike, name ='adddislike'),
     url(r'^page/(\d+)/$', views.post_list, name = 'post_list'),
+    url(r'^category/get/(?P<category_id>\d+)/$', views.post_cat, name='post_cat'),
+    url(r'^keyword/(?P<id>\d+)/$', views.keywords, name='keywords'),
 ]
 
 # if settings.DEBUG:

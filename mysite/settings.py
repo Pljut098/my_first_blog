@@ -57,6 +57,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'mysite.urls'
 
+MPTT_ADMIN_LEVEL_INDENT = 40
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -119,3 +121,5 @@ CKEDITOR_CONFIGS = {
 }
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+AUTH_USER_MODEL = 'loginsys.MyUser'

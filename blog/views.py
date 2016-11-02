@@ -4,7 +4,7 @@ from django.http import Http404, cookie
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.template.context_processors import csrf
 from django.utils import timezone
-from .models import Post, Comments
+from .models import Post, Comments, Category, Keywords
 from .forms import PostForm, CommentsForm
 from django.contrib import auth
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -15,6 +15,7 @@ def post_list(request, page_number=1):
     posts1 = Post.objects.all()
     paginator = Paginator(posts1,3)
     page = request.GET.get('page')
+
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -24,7 +25,8 @@ def post_list(request, page_number=1):
         # If page is out of range (e.g. 9999), deliver last page of results.
         posts = paginator.page(paginator.num_pages)
     username = auth.get_user(request).username
-    return render(request, 'blog/post_list.html', {'posts': posts, 'username': username})
+    project=Category.objects.all()
+    return render(request, 'blog/post_list.html', {'posts': posts, 'username': username,'projects': project})
 
 
 def post_detail(request, pk):
@@ -35,6 +37,7 @@ def post_detail(request, pk):
     args['comments'] = Comments.objects.filter(comments_article_id=pk)
     args['form'] = comments_form
     args['username'] = auth.get_user(request).username
+    args['keywords'] = Keywords.objects.all()
     return render(request,'blog/post_detail.html', args )
 
 
@@ -111,3 +114,23 @@ def adddislike(request, pk):
     except ObjectDoesNotExist:
         raise Http404
     return redirect('/')
+
+def post_cat(request, category_id=1):
+    args = {}
+    args['projects'] = Category.objects.all()
+    args['category'] = Category.objects.get(id=category_id)
+    args['posts'] = Post.objects.filter(category_id=category_id)
+    args['username'] = auth.get_user(request).username
+    args['keywords'] = Keywords.objects.all()
+    branch_categories = args['category'].get_descendants(include_self=True)
+    args['category_posts'] = Post.objects.filter(category_id=branch_categories).distinct()
+    return render(request, 'blog/post_cat.html', args)
+
+def keywords(request, id):
+    args = {}
+
+    args['keywords'] = Keywords.objects.all()
+    args['keyw_s'] = Keywords.objects.get(id=id)
+    args['posts'] = Post.objects.filter(keywords__name__exact=args['keyw_s'])
+    args['projects'] = Category.objects.all()
+    return render(request,'keywpage.html', args)

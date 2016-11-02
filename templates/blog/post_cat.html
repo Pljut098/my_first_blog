@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% load i18n mptt_tags %}
+{% load mptt_tags %}
+
+{% block content %}
+      {% for post in category_posts %}
+        <div class="post">
+
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{% autoescape off %}{{ post.text|linebreaksbr }}{% endautoescape %}</p>
+            <div>
+            <p><a href="{% url 'addlike' pk=post.pk %}"><img src="{% static 'img/like.png' %}" width="25px" height="25px"></a> {{ post.likes }}</p>
+              <p><a href="{% url 'adddislike' pk=post.pk %}"><img src="{% static 'img/dislike.jpeg' %}" width="25px" height="25px"></a> {{ post.dislikes }}</p>
+                </div>
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        </div>
+      {% endfor %}
+
+
+
+
+{% endblock content %}
