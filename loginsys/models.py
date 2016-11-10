@@ -1,6 +1,4 @@
 
-
-
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
@@ -57,7 +55,7 @@ class MyUser(AbstractBaseUser):
     phone = models.IntegerField(default=0, blank=True)
     avatar = models.ImageField(upload_to = 'image/', default = 'image/None/no-img.jpg',blank=True)
     date_of_birth = models.DateField(blank=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()

@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -42,6 +43,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'mptt',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,6 +89,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+ACCOUNT_ACTIVATION_DAYS = 7
+# для отправки кода активации
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'pljut@yandex.ru'
+EMAIL_HOST_PASSWORD = 'pljut4102'
+EMAIL_USE_TLS = True
 
 
 # Internationalization

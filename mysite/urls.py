@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^auth/', include('loginsys.urls')),
 
 
+
 ]
 
 if settings.DEBUG:
